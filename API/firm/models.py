@@ -27,3 +27,26 @@ class Company(models.Model):
 
     def get_absolute_url(self):
         return reverse("company_detail", kwargs={"pk": self.pk})
+
+
+class Activities(models.Model):
+    '''
+    Description of company's general activities.
+    '''
+    goods = models.CharField(_("Type of goods produced."), max_length=50)
+    technology = models.CharField(_("Technology"), max_length=50)
+    size = models.CharField(_("size"), max_length=50)
+    sourced_nearby = models.BooleanField(_("Are raw materials sourced nearby."))
+    raw_materials = models.CharField(_("the raw materials."), max_length=50)
+    products = models.CharField(_("Finished products."), max_length=50)
+    
+
+    class Meta:
+        verbose_name = _("Activities")
+        verbose_name_plural = _("Activitiess")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("Activities_detail", kwargs={"pk": self.pk})
