@@ -50,3 +50,24 @@ class Activities(models.Model):
 
     def get_absolute_url(self):
         return reverse("Activities_detail", kwargs={"pk": self.pk})
+
+
+class Waste(models.Model):
+    '''
+    Waste products
+    '''
+    waste_type = models.CharField(_("type of waste"), max_length=50)
+    disposal_mechanism = models.CharField(_("Waste disposal mechanism."), max_length=50)
+    potential_hazard = models.CharField(_("potential hazard"), max_length=50)
+    eia = models.BinaryField(_("Environmental impact assessment."))
+    air_quality = models.CharField(_("air quality"), max_length=50)
+
+    class Meta:
+        verbose_name = _("Waste")
+        verbose_name_plural = _("Wastes")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("waste_detail", kwargs={"pk": self.pk})
