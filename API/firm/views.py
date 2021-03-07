@@ -34,7 +34,7 @@ class WasteDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WasteSerializer
 
 
-class ProfileList(generics.ListAPIView):
+class ProfileList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = ProfileSerializer
 
