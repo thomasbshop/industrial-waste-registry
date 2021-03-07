@@ -45,6 +45,7 @@ class Activities(models.Model):
         "Company",
         blank=True,
         null=True,
+        related_name='activities',
         verbose_name=_("Company"),
         on_delete=models.CASCADE
     )
@@ -73,6 +74,7 @@ class Waste(models.Model):
         "Company",
         blank=True,
         null=True,
+        related_name='waste',
         verbose_name=_("Company"),
         on_delete=models.CASCADE
     )

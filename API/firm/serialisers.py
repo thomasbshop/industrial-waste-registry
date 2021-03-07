@@ -39,3 +39,19 @@ class WasteSerializer(serializers.ModelSerializer):
             'air_quality',
             'company',
         )
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    activities = ActivitiesSerializer(many=True, read_only=True)
+    waste = WasteSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Company
+        fields = (
+            'id',
+            'name',
+            'street',
+            'county',
+            'activities',
+            'waste',
+        )
