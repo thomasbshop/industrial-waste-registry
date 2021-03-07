@@ -16,7 +16,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/industrial-watse-app'),
+      dir: require('path').join(__dirname, './coverage/industrial-waste-app'),
       subdir: '.',
       reporters: [
         { type: 'html' },

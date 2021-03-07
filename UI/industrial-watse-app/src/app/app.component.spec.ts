@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'industrial-watse-app'`, () => {
+  it(`should have as title 'industrial-waste-app'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('industrial-watse-app');
+    expect(app.title).toEqual('industrial-waste-app');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('industrial-watse-app app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('industrial-waste-app app is running!');
   });
 });
