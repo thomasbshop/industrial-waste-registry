@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from firm import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/company/', views.CompanyList.as_view(), name='entities-list'),
 ]
