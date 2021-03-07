@@ -15,3 +15,8 @@ services:
       - "80:80"
     depends_on:
       - db
+  ui:
+    container_name: ui
+    build: UI
+    ports:
+      - "8080:80"
