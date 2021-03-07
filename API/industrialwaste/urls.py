@@ -16,6 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from firm import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/company/', views.CompanyList.as_view(), name='entities-list'),
+    path('api/company/<pk>/', views.CompanyDetail.as_view(), name='entity-detail'),
+    path('api/activities/', views.ActivitiesList.as_view(), name='activities-list'),
+    path('api/activities/<pk>/', views.ActivitiesDetail.as_view(), name='activities-detail'),
+    path('api/waste/', views.WasteList.as_view(), name='waste-list'),
+    path('api/waste/<pk>/', views.WasteDetail.as_view(), name='waste-detail'),
+    path('api/profile/', views.ProfileList.as_view(), name='profile-list'),
+    path('api/profile/<pk>/', views.ProfileDetail.as_view(), name='profile-detail'),
 ]
