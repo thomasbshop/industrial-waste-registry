@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from './interfaces/profile';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  API_URL = 'http://localhost/api';
+  API_URL =  environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

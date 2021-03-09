@@ -15,8 +15,11 @@ RUN npm install --prefix industrial-waste-app
 # Copy app files.
 COPY . /app
 
+# Default build configuration.
+ARG configuration=production
+
 # Build app
-RUN npm run build --prefix industrial-waste-app -- --output-path=./dist/out
+RUN npm run build --prefix industrial-waste-app -- --output-path=./dist/out --configuration $configuration
 
 
 ### Stage 2: delivery ###
