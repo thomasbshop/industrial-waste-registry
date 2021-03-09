@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subject } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
 import { ColumnItem, DataItem } from 'src/app/interfaces/datatable'
 import { Profile } from 'src/app/interfaces/profile';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent } from '../form/form.component';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table',
@@ -14,6 +16,9 @@ import { FormComponent } from '../form/form.component';
 export class DataTableComponent implements OnInit {
 
   profiles$: Observable<Profile[]> = observableOf([]);
+  public searchCourseTerm = new Subject<string>();
+  searchControl: FormControl = new FormControl("");
+  searching: boolean = false;
 
   constructor(private apiService: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
@@ -166,8 +171,19 @@ export class DataTableComponent implements OnInit {
   }
   // ***** //
 
+  search(term: string ){
+    this.searchCourseTerm.next(term);
+  }
+
   ngOnInit() {
-    this.getProfiles();
+    // this.profiles$ = this.apiService.getProfiles("");
+    this.profiles$ = this.searchCourseTerm.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap((term: string) => this.apiService.getProfiles(term)),
+      tap(() => this.searching = false)
+  );
   }
 
   public getProfiles() {

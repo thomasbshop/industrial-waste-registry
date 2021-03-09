@@ -50,6 +50,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'address',
             'street',
             'county',
             'activities',

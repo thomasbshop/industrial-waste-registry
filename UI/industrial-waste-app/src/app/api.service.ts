@@ -16,9 +16,9 @@ export class ApiService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  public getProfiles(): Observable<Profile[]> {
+  public getProfiles(searchTerm: string = ""): Observable<Profile[]> {
     console.log(`earer ${this.auth.accessToken}`)
-    return this.http.get<Profile[]>(`${this.API_URL}/profile/`, 
+    return this.http.get<Profile[]>(`${this.API_URL}/profile/?search=${searchTerm}`, 
                     {
                       headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
                     });
