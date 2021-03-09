@@ -127,7 +127,8 @@ export class DataTableComponent implements OnInit {
   }
 
   deleteRow(id: any): void {
-    this.listOfData = this.listOfData.filter(d => d.id !== id);
+    this.apiService.deleteRegistry(id);
+    this.getProfiles();
   }
   
   // modal
