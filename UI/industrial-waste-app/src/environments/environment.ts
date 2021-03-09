@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/api',
   auth: {
     clientID: 'f5CeUwT1KlB1oblnoskbqLGkyOa200rX',
     domain: 'industrial-waste-registry.eu.auth0.com', // e.g., you.auth0.com
