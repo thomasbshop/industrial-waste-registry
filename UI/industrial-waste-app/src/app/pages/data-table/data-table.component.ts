@@ -27,13 +27,6 @@ export class DataTableComponent implements OnInit {
       filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
     },
     {
-      name: 'Age',
-      sortOrder: null,
-      sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
-      listOfFilter: [],
-      filterFn: null
-    },
-    {
       name: 'Address',
       sortFn: null,
       sortOrder: null,
@@ -42,29 +35,101 @@ export class DataTableComponent implements OnInit {
         { text: 'Sidney', value: 'Sidney' }
       ],
       filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
-    }
+    },
+    {
+      name: 'Location',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.location.localeCompare(b.location),
+      listOfFilter: [],
+      filterFn: null
+    },
+    {
+      name: 'Size',
+      sortFn: null,
+      sortOrder: null,
+      listOfFilter: [
+        { text: 'London', value: 'London' },
+        { text: 'Sidney', value: 'Sidney' }
+      ],
+      filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
+    },
+    {
+      name: 'Technologies',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.technologies.localeCompare(b.technologies),
+      listOfFilter: [],
+      filterFn: null
+    },
+    {
+      name: 'Type of Waste',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.waste.localeCompare(b.waste),
+      listOfFilter: [],
+      filterFn: null
+    },
+    {
+      name: 'Disposal Mechanism',
+      sortFn: null,
+      sortOrder: null,
+      listOfFilter: [
+        { text: 'London', value: 'London' },
+        { text: 'Sidney', value: 'Sidney' }
+      ],
+      filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
+    },
+    {
+      name: 'Potential Hazard',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.hazard.localeCompare(b.hazard),
+      listOfFilter: [],
+      filterFn: null
+    },
   ];
   listOfData: DataItem[] = [
     {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
+      id: '1',
+      name: 'Brownian',
+      address: 'New York No. 1 Lake Park',
+      location: '',
+      size: '',
+      technologies: '',
+      waste: 'CO2',
+      disposal: '',
+      hazard: '',
     },
     {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
+      id: '1',
+      name: 'Brownian',
+      address: 'New York No. 1 Lake Park',
+      location: '',
+      size: '',
+      technologies: '',
+      waste: 'CO2',
+      disposal: '',
+      hazard: '',
     },
     {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
+      id: '1',
+      name: 'Brownian',
+      address: 'New York No. 1 Lake Park',
+      location: '',
+      size: '',
+      technologies: '',
+      waste: 'CO2',
+      disposal: '',
+      hazard: '',
     },
     {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
+      id: '1',
+      name: 'Brownian',
+      address: 'New York No. 1 Lake Park',
+      location: '',
+      size: '',
+      technologies: '',
+      waste: 'CO2',
+      disposal: '',
+      hazard: '',
+    },
   ];
 
   trackByName(_: number, item: ColumnItem): string {
@@ -103,6 +168,11 @@ export class DataTableComponent implements OnInit {
     });
     this.resetFilters();
   }
+
+  deleteRow(id: string): void {
+    this.listOfData = this.listOfData.filter(d => d.id !== id);
+  }
+
 
   ngOnInit() {
     this.getProfiles();

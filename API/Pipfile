@@ -7,6 +7,10 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 psycopg2 = "*"
+django-cors-headers = "*"
+djangorestframework-jwt = "*"
+cryptography = "*"
+python-jose = "*"
 
 [dev-packages]
 
