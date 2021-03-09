@@ -29,7 +29,7 @@ export class DataTableComponent implements OnInit {
       filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
     },
     {
-      name: 'Address',
+      name: 'Street',
       sortFn: null,
       sortOrder: null,
       listOfFilter: [
@@ -39,7 +39,7 @@ export class DataTableComponent implements OnInit {
       filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
     },
     {
-      name: 'Location',
+      name: 'County',
       sortOrder: null,
       sortFn: (a: DataItem, b: DataItem) => a.location.localeCompare(b.location),
       listOfFilter: [],
@@ -171,7 +171,7 @@ export class DataTableComponent implements OnInit {
     this.resetFilters();
   }
 
-  deleteRow(id: string): void {
+  deleteRow(id: any): void {
     this.listOfData = this.listOfData.filter(d => d.id !== id);
   }
   

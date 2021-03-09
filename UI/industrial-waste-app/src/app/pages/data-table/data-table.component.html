@@ -17,7 +17,7 @@
                     </ng-template>
                   </span>
                 </div>
-                <nz-table #filterTable [nzData]="listOfData" nzTableLayout="fixed">
+                <nz-table #filterTable  nzTableLayout="fixed">
                 <thead>
                     <tr>
                     <th
@@ -33,15 +33,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of filterTable.data">
+                    <tr *ngFor="let data of profiles$ | async">
                     <td>{{ data.name }}</td>
-                    <td>{{ data.address }}</td>
-                    <td>{{ data.location }}</td>
-                    <td>{{ data.size }}</td>
-                    <td>{{ data.technologies }}</td>
-                    <td>{{ data.waste }}</td>
-                    <td>{{ data.disposal }}</td>
-                    <td>{{ data.hazard }}</td>
+                    <td>{{ data.street }}</td>
+                    <td>{{ data.county }}</td>
+                    <td>{{ data.activities[0].size }}</td>
+                    <td>{{ data.activities[0].technology }}</td>
+                    <td>{{ data.waste[0].waste_type }}</td>
+                    <td>{{ data.waste[0].disposal_mechanism }}</td>
+                    <td>{{ data.waste[0].potential_hazard }}</td>
                     <td><a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a></td>
                     </tr>
                 </tbody>
@@ -60,7 +60,6 @@
           </nz-content>
 
           <nz-modal
-            [(nzVisible)]="isVisible"
             nzTitle="Modal Title"
           >
             <p *nzModalContent>Modal Content</p>
