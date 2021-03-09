@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Imports for JWT authentication.
 import json
+import os
 from six.moves.urllib import request
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
