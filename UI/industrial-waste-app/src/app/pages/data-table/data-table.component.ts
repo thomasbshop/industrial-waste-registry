@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subject } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
 import { ColumnItem, DataItem } from 'src/app/interfaces/datatable'
 import { Profile } from 'src/app/interfaces/profile';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent } from '../form/form.component';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table',
@@ -14,6 +16,9 @@ import { FormComponent } from '../form/form.component';
 export class DataTableComponent implements OnInit {
 
   profiles$: Observable<Profile[]> = observableOf([]);
+  public searchCourseTerm = new Subject<string>();
+  searchControl: FormControl = new FormControl("");
+  searching: boolean = false;
 
   constructor(private apiService: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
@@ -29,7 +34,7 @@ export class DataTableComponent implements OnInit {
       filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
     },
     {
-      name: 'Address',
+      name: 'Street',
       sortFn: null,
       sortOrder: null,
       listOfFilter: [
@@ -39,7 +44,7 @@ export class DataTableComponent implements OnInit {
       filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
     },
     {
-      name: 'Location',
+      name: 'County',
       sortOrder: null,
       sortFn: (a: DataItem, b: DataItem) => a.location.localeCompare(b.location),
       listOfFilter: [],
@@ -87,53 +92,8 @@ export class DataTableComponent implements OnInit {
       filterFn: null
     },
   ];
-  listOfData: DataItem[] = [
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-  ];
-
+  listOfData: DataItem[] = [];
+  
   trackByName(_: number, item: ColumnItem): string {
     return item.name;
   }
@@ -171,13 +131,14 @@ export class DataTableComponent implements OnInit {
     this.resetFilters();
   }
 
-  deleteRow(id: string): void {
-    this.listOfData = this.listOfData.filter(d => d.id !== id);
+  deleteRow(id: any): void {
+    this.apiService.deleteRegistry(id);
+    this.getProfiles();
   }
   
   // modal
 
-  createComponentModal(form: string): void {
+  createComponentModal(form: string, data?: any): void {
     const modal = this.modal.create({
       nzTitle: 'Form',
       nzContent: FormComponent,
@@ -185,9 +146,10 @@ export class DataTableComponent implements OnInit {
       nzComponentParams: {
         title: 'title in component',
         subtitle: 'component sub title，will be changed after 2 sec',
-        form: form
+        form: form,
+        data: data,
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzAfterClose: this.getProfiles(),
       nzFooter: [
         {
           label: 'change component title from outside',
@@ -209,8 +171,19 @@ export class DataTableComponent implements OnInit {
   }
   // ***** //
 
+  search(term: string ){
+    this.searchCourseTerm.next(term);
+  }
+
   ngOnInit() {
-    this.getProfiles();
+    // this.profiles$ = this.apiService.getProfiles("");
+    this.profiles$ = this.searchCourseTerm.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap((term: string) => this.apiService.getProfiles(term)),
+      tap(() => this.searching = false)
+  );
   }
 
   public getProfiles() {

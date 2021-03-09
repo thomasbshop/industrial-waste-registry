@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Profile } from './interfaces/profile';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { PostProfile, Profile } from './interfaces/profile';
 import { AuthService } from './auth/auth.service';
 
 import { environment } from '../environments/environment';
@@ -15,34 +16,37 @@ export class ApiService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  public getProfiles(): Observable<Profile[]> {
-    return this.http.get<Profile[]>(`${this.API_URL}/profile/`, 
+  public getProfiles(searchTerm: string = ""): Observable<Profile[]> {
+    console.log(`earer ${this.auth.accessToken}`)
+    return this.http.get<Profile[]>(`${this.API_URL}/profile/?search=${searchTerm}`, 
                     {
                       headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
                     });
   }
 
-  // // Create a Task.
-  // public postTask(new_task: Task) {
-  //   return this.http.post(`${this.API_URL}/task/`,new_task,
-  //           {
-  //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
-  //           });
-  // }
+  // Create a registry.
+  public postRegistry(new_registry: PostProfile) {
+    return this.http.post(`${this.API_URL}/profile/`, new_registry,
+            {
+              headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
+            });
+  }
 
-  // // Update a Task.
-  // public putTask(the_task: Task) {
-  //   return this.http.put(`${this.API_URL}/task/${the_task.id}/`,the_task,
-  //           {
-  //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
-  //           });
-  // }
+  // Update a Registry.
+  public putRegistry(profile: any, data: any) {
+    return this.http.put(`${this.API_URL}/profile/${data.id}/`,profile,
+            {
+              headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
+            });
+  }
 
-  // // Delete a Task.
-  // public deleteTask(task_id: number) {
-  //   return this.http.delete(`${this.API_URL}/task/${task_id}/`,
-  //           {
-  //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
-  //           });
-  // }
+  // Delete a Registry.
+  public deleteRegistry(profile_id: number): any{
+     this.http.delete(`${this.API_URL}/profile/${profile_id}/`,
+            {
+              headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
+            }).subscribe(data => {
+              console.log(data);
+            });
+  }
 }

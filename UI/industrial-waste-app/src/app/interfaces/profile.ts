@@ -4,5 +4,18 @@ export interface Profile {
     street: string,
     county: string,
     activities: any,
-    waste: any
+    address: string,
+    location: string,
+    size: string,
+    technologies: string,
+    waste: any,
+    disposal: string,
+    hazard: string
+}
+
+export interface PostProfile {
+    name: string,
+    street: string,
+    county: string,
+    address: string,
 }
