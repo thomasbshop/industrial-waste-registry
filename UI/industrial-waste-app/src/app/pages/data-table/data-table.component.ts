@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
 import { ColumnItem, DataItem } from 'src/app/interfaces/datatable'
 import { Profile } from 'src/app/interfaces/profile';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'app-data-table',
@@ -13,7 +15,7 @@ export class DataTableComponent implements OnInit {
 
   profiles$: Observable<Profile[]> = observableOf([]);
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   listOfColumns: ColumnItem[] = [
     {
@@ -174,24 +176,38 @@ export class DataTableComponent implements OnInit {
   }
   
   // modal
-  isVisible = false;
-  isOkLoading = false;
 
-  showModal(): void {
-    this.isVisible = true;
-  }
+  createComponentModal(form: string): void {
+    const modal = this.modal.create({
+      nzTitle: 'Form',
+      nzContent: FormComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzComponentParams: {
+        title: 'title in component',
+        subtitle: 'component sub title，will be changed after 2 sec',
+        form: form
+      },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: [
+        {
+          label: 'change component title from outside',
+          onClick: componentInstance => {
+            componentInstance!.title = 'title in inner component is changed';
+          }
+        }
+      ]
+    });
+    const instance = modal.getContentComponent();
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
 
-  handleOk(): void {
-    this.isOkLoading = true;
+    // delay until modal instance created
     setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-    }, 3000);
+      instance.subtitle = 'sub title is changed';
+    }, 2000);
   }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
+  // ***** //
 
   ngOnInit() {
     this.getProfiles();

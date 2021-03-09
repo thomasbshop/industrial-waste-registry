@@ -27,6 +27,7 @@ import { FormContainerComponent } from './pages/form-container/form-container.co
 import { FormatTitlePipe } from './pipes/form-title-pipe';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { CallbackComponent } from './pages/callback/callback.component';
+import { FormComponent } from './pages/form/form.component';
 
 registerLocaleData(en);
 
@@ -40,7 +41,8 @@ registerLocaleData(en);
     FormContainerComponent,
     FormatTitlePipe,
     MainPageComponent,
-    CallbackComponent
+    CallbackComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
