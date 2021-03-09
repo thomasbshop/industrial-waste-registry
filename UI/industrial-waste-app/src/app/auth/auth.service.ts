@@ -40,6 +40,7 @@ export class AuthService {
   public handleLoginCallback(): void {
     this.auth0.parseHash((err: any, authResult: any) => {
       if (authResult && authResult.accessToken) {
+        console.log(authResult);
         window.location.hash = '';
         this.getUserInfo(authResult);
       } else if (err) {
@@ -82,11 +83,13 @@ export class AuthService {
       returnTo: environment.auth.auth0ReturnTo,
       clientID: environment.auth.clientID
     });
+    this.isLoggedIn;
   }
 
   // Checks whether the expiry time for the user's Access Token has passed and that user is signed in locally.
   get isLoggedIn(): any {
     if (this.expiresAt){
+      console.log((Date.now() < this.expiresAt && this.authenticated));
       return Date.now() < this.expiresAt && this.authenticated;
     }
   }

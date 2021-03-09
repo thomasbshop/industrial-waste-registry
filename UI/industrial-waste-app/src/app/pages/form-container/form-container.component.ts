@@ -14,7 +14,7 @@ export class FormContainerComponent implements OnInit {
 
   formContent: any;
   formData: any;
-  activeStepIndex: number;
+  activeStepIndex?: number;
 
   ngOnInit(): void {
     this.formContent = STEP_ITEMS;

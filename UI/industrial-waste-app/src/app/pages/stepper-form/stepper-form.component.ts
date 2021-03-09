@@ -19,13 +19,13 @@ export class StepperFormComponent implements OnInit {
 
   @Output() readonly formSubmit: EventEmitter<any> = new EventEmitter<any>();
 
-  activeStepIndex: number;
-  currentFormContent: Array<any>;
+  activeStepIndex: number = 0;
+  currentFormContent: Array<any> = [];
   formData: any;
-  formFields: Array<Array<string>>;
-  masterFormFields: Array<string>;
-  stepItems: Array<any>;
-  masterForm: Array<FormGroup>;
+  formFields?: Array<Array<string>>;
+  masterFormFields?: Array<string>;
+  stepItems: Array<any> = []; 
+  masterForm: Array<FormGroup> = [];
 
   constructor(
     private readonly _formBuilder: FormBuilder,
@@ -41,16 +41,16 @@ export class StepperFormComponent implements OnInit {
     this.formFields = [];
     this.stepItems = this.formContent;
 
-    this.stepItems.forEach((data, i) => {
-      this.currentFormContent.push(this.stepItems[i]["data"]); // holds name, validators, placeholder of all steps
-      this.formFields.push(Object.keys(this.currentFormContent[i])); // holds string values for each field of all steps
+    this.stepItems?.forEach((data, i) => {
+      this.currentFormContent?.push(this.stepItems[i]["data"]); // holds name, validators, placeholder of all steps
+      this.formFields?.push(Object.keys(this.currentFormContent[i])); // holds string values for each field of all steps
       this.masterForm.push(this.buildForm(this.currentFormContent[i])); // holds all form groups
     });
   }
 
   // build separate FormGroups for each form
   buildForm(currentFormContent: any): FormGroup {
-    const formDetails = Object.keys(currentFormContent).reduce((obj, key) => {
+    const formDetails = Object.keys(currentFormContent).reduce((obj: any, key) => {
       obj[key] = ["", this.getValidators(currentFormContent[key])];
 
       return obj;
@@ -83,8 +83,10 @@ export class StepperFormComponent implements OnInit {
       validator => {
         if (validator === "required") {
           return Validators[validator];
-        } else {
-          return Validators[validator](formField.validations[validator]);
+        } 
+        else {
+          // return Validators[validator](formField.validations[validator]);
+          return null
         }
       }
     );
@@ -93,14 +95,15 @@ export class StepperFormComponent implements OnInit {
   }
 
   // get validation error messages per error, per field
-  getValidationMessage(formIndex: number, formFieldName: string): string {
-    const formErrors = this.masterForm[formIndex].get(formFieldName).errors;
-    const errorMessages = this.currentFormContent[formIndex][formFieldName]
-      .errors;
-    const validationError = errorMessages[Object.keys(formErrors)[0]];
+  // getValidationMessage(formIndex: number, formFieldName: string): string {
+  //   if(this.masterForm != null) {
+  //     const formErrors = this.masterForm[formIndex].get(formFieldName).errors;
+  //   }
+  //   const errorMessages = this.currentFormContent[formIndex][formFieldName].errors;
+  //   const validationError = errorMessages[Object.keys(formErrors)[0]];
 
-    return validationError;
-  }
+  //   return validationError;
+  // }
 
   goToStep(step: string): void {
     this.activeStepIndex =
