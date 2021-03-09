@@ -87,53 +87,8 @@ export class DataTableComponent implements OnInit {
       filterFn: null
     },
   ];
-  listOfData: DataItem[] = [
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-    {
-      id: '1',
-      name: 'Brownian',
-      address: 'New York No. 1 Lake Park',
-      location: '',
-      size: '',
-      technologies: '',
-      waste: 'CO2',
-      disposal: '',
-      hazard: '',
-    },
-  ];
-
+  listOfData: DataItem[] = [];
+  
   trackByName(_: number, item: ColumnItem): string {
     return item.name;
   }
@@ -187,7 +142,7 @@ export class DataTableComponent implements OnInit {
         subtitle: 'component sub title，will be changed after 2 sec',
         form: form
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzAfterClose: this.getProfiles(),
       nzFooter: [
         {
           label: 'change component title from outside',

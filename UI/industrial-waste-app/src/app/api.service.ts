@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Profile } from './interfaces/profile';
+import { PostProfile, Profile } from './interfaces/profile';
 import { AuthService } from './auth/auth.service';
 
 import { environment } from '../environments/environment';
@@ -16,31 +16,32 @@ export class ApiService {
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   public getProfiles(): Observable<Profile[]> {
+    console.log(`earer ${this.auth.accessToken}`)
     return this.http.get<Profile[]>(`${this.API_URL}/profile/`, 
                     {
                       headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
                     });
   }
 
-  // // Create a Task.
-  // public postTask(new_task: Task) {
-  //   return this.http.post(`${this.API_URL}/task/`,new_task,
+  // Create a registry.
+  public postRegistry(new_registry: PostProfile) {
+    return this.http.post(`${this.API_URL}/profile/`, new_registry,
+            {
+              headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
+            });
+  }
+
+  // // Update a Registry.
+  // public putRegistry(the_Registry: Registry) {
+  //   return this.http.put(`${this.API_URL}/Registry/${the_Registry.id}/`,the_Registry,
   //           {
   //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
   //           });
   // }
 
-  // // Update a Task.
-  // public putTask(the_task: Task) {
-  //   return this.http.put(`${this.API_URL}/task/${the_task.id}/`,the_task,
-  //           {
-  //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
-  //           });
-  // }
-
-  // // Delete a Task.
-  // public deleteTask(task_id: number) {
-  //   return this.http.delete(`${this.API_URL}/task/${task_id}/`,
+  // // Delete a Registry.
+  // public deleteRegistry(Registry_id: number) {
+  //   return this.http.delete(`${this.API_URL}/Registry/${Registry_id}/`,
   //           {
   //             headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
   //           });

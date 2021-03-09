@@ -25,7 +25,9 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>County</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
-          <input nz-input formControlName="county" placeholder="County" />
+          <nz-select [(ngModel)]="selectedCounty" formControlName="county" >
+            <nz-option *ngFor="let p of countyData" [nzValue]="p" [nzLabel]="p"></nz-option>
+          </nz-select>
           <ng-template #userErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">
               Please input your county!

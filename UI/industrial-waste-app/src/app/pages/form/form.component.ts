@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { Observable, Observer } from 'rxjs';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-form',
@@ -17,12 +18,22 @@ export class FormComponent implements OnInit {
 
   validateForm: FormGroup;
 
-  submitForm(value: { userName: string; email: string; password: string; confirm: string; comment: string }): void {
+  selectedCounty = 'Mombasa';
+  countyData = ['Nairobi', 'Kajiado', 'Mombasa'];
+
+  submitForm(value: { name: string; address: string; street: string; county: string; }): void {
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
+        // Create the registry.
+        this.apiService.postRegistry(value)
+        .subscribe(
+          (response) => {
+            console.log(response);
+          }
+        )
     this.destroyModal()
   }
 
@@ -40,7 +51,7 @@ export class FormComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder, private modal: NzModalRef) {
+  constructor(private fb: FormBuilder, private modal: NzModalRef, private apiService: ApiService,) {
     this.validateForm = this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],

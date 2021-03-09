@@ -12,3 +12,10 @@ export interface Profile {
     disposal: string,
     hazard: string
 }
+
+export interface PostProfile {
+    name: string,
+    street: string,
+    county: string,
+    address: string,
+}
