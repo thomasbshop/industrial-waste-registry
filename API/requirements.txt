@@ -13,3 +13,4 @@ djangorestframework==3.12.2
 psycopg2==2.8.6
 pytz==2021.1
 sqlparse==0.4.1; python_version >= '3.5'
+uwsgi==2.0.19.1
