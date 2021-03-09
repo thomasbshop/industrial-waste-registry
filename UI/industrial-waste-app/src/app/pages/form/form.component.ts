@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   @Input() title?: string;
   @Input() subtitle?: string;
   @Input() form?: string;
+  @Input() data?: any;
 
   validateForm: FormGroup;
 
@@ -27,13 +28,24 @@ export class FormComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-        // Create the registry.
-        this.apiService.postRegistry(value)
+    if(this.data){
+        // Update the registry.
+        console.log(this.data)
+        this.apiService.putRegistry(value, this.data)
         .subscribe(
           (response) => {
             console.log(response);
           }
         )
+    } else {
+       // Create the registry.
+       this.apiService.postRegistry(value)
+       .subscribe(
+         (response) => {
+           console.log(response);
+         }
+       )
+    }
     this.destroyModal()
   }
 
@@ -66,6 +78,15 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.data){
+      this.validateForm.setValue(
+        { 
+           name : this.data.name,
+           address :this.data.address,
+           street :this.data.street,
+           county :this.data.county
+       })
+    }
   }
 
 }

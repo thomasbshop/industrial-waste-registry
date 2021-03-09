@@ -42,7 +42,13 @@
                     <td>{{ data.waste[0]?.waste_type }}</td>
                     <td>{{ data.waste[0]?.disposal_mechanism }}</td>
                     <td>{{ data.waste[0]?.potential_hazard }}</td>
-                    <td><a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a></td>
+                    <td>
+                      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <a (click)="createComponentModal('details', data)">update</a>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <a href="#">More action</a>
+                      </td>
                     </tr>
                 </tbody>
                 </nz-table>

@@ -133,7 +133,7 @@ export class DataTableComponent implements OnInit {
   
   // modal
 
-  createComponentModal(form: string): void {
+  createComponentModal(form: string, data?: any): void {
     const modal = this.modal.create({
       nzTitle: 'Form',
       nzContent: FormComponent,
@@ -141,7 +141,8 @@ export class DataTableComponent implements OnInit {
       nzComponentParams: {
         title: 'title in component',
         subtitle: 'component sub title，will be changed after 2 sec',
-        form: form
+        form: form,
+        data: data,
       },
       // nzAfterClose: this.getProfiles(),
       nzFooter: [
