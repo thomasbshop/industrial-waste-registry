@@ -25,6 +25,7 @@ Clone the repository.
 Install docker and docker-compose
 Run the following commands at the root of the project.
 ```
+export DJANGO_SETTINGS="dev"
 docker-compose build
 docker-compose up
 ```
