@@ -14,8 +14,8 @@ This project is a Dockerized Django Back-end API with Angular Front-end
 
 ## Installing
 ### Requirements
- - Docker
- - Docker Compose
+ - [Docker] (https://docs.docker.com/engine/install/)
+ - [Docker Compose] (https://docs.docker.com/compose/install/)
 
 ### Steps
 Clone the repository.
