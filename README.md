@@ -25,7 +25,23 @@ Clone the repository.
 Install docker and docker-compose
 Run the following commands at the root of the project.
 ```
-export DJANGO_SETTINGS="dev"
-docker-compose build
+docker-compose build 
 docker-compose up
 ```
+or
+```
+sudo docker-compose build 
+sudo docker-compose up
+```
+Navigate to the following links to perfom actions:
+
+API
+ - http://localhost/api/profile/
+ - http://localhost/api/company/
+ - http://localhost/api/activities/
+ - http://localhost/api/waste/
+ 
+UI
+ - http://localhost:8080/list
+
+Note: the applications are secured therefore you will have doubleclick the login link at the UI to login first.
