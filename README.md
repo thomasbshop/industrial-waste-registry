@@ -22,6 +22,12 @@ Clone the repository.
 ```
   git clone https://github.com/thomasbshop/industrial-waste-registry.git
 ```
+Checkout to the main branch
+```
+git fetch
+git checkout main
+```
+
 Install docker and docker-compose
 Run the following commands at the root of the project.
 ```
