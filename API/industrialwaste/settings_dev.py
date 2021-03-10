@@ -139,14 +139,14 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 ## Add JWT authentication to default authentication classes
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # All views have this permission active (unless overwritten).
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated', # All views have this permission active (unless overwritten).
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#     ),
+# }
 
 
 AUTH0_DOMAIN = 'industrial-waste-registry.eu.auth0.com'
