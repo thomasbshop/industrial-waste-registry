@@ -34,11 +34,13 @@ sudo docker-compose build
 sudo docker-compose up
 ```
 Navigate to the following links to perfom actions:
+
 API
  - http://localhost/api/profile/
  - http://localhost/api/company/
  - http://localhost/api/activities/
  - http://localhost/api/waste/
+ 
 UI
  - http://localhost:8080/list
 
