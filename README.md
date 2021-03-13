@@ -31,14 +31,15 @@ git checkout main
 Install docker and docker-compose
 Run the following commands at the root of the project.
 ```
-docker-compose build 
-docker-compose up
-```
-or
-```
 sudo docker-compose build 
 sudo docker-compose up
 ```
+Once the services are running, we need to create the database migrations.
+Now, open another terminal window and run:
+```
+sudo docker-compose run api python manage.py migrate
+```
+Make sure your connected to the internet. This is for connection with the OAuth 2.0 Authorization Framework
 Navigate to the following links to perfom actions:
 
 API
