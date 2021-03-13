@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 
 from .models import Company, Activities,Waste
 from .serialisers import CompanySerializer, ActivitiesSerializer, WasteSerializer, ProfileSerializer
@@ -35,6 +35,8 @@ class WasteDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProfileList(generics.ListCreateAPIView):
+    search_fields = ['name', 'waste__waste_type', 'waste__potential_hazard']
+    filter_backends = (filters.SearchFilter,)
     queryset = Company.objects.all()
     serializer_class = ProfileSerializer
 

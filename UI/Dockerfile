@@ -1,6 +1,6 @@
 ### Stage 1: build ###
 
-FROM node:11.4.0-alpine as builder
+FROM node:12.21.0-alpine as builder
 
 # Set working directory.
 RUN mkdir /app

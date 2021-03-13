@@ -11,6 +11,8 @@ services:
     command: python manage.py runserver 0.0.0.0:80
     volumes:
       - ./API:/code
+    environment:
+     - DJANGO_SETTINGS=dev
     ports:
       - "80:80"
     depends_on:
