@@ -133,10 +133,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# CORS_ORIGIN_WHITELIST = (
-#     'https://localhost:4200',
-#     'https://localhost:8080',
-# )
+CORS_ORIGIN_WHITELIST = (
+    'https://localhost:4200',
+    'https://localhost:8080',
+    'http://localhost/api',
+    'http://localhost'
+)
 
 ## Add JWT authentication to default authentication classes
 REST_FRAMEWORK = {
